@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guesser</title>
+    <style>
+        body {text-align: center;}
+    </style>
+</head>
+<body onload="iHidden_number()">
+
+    <h1>Guess the Number!</h1>
+    <label for="guessed_number">Enter a number between 1 and 50</label>
+    <br></br>
+    <!--Button below runs the iNumber_guesser function that takes the random number and runs the guess entered by the user-->
+    <input type="number" id="guessed_number" placeholder="1-50">
+    <button onclick="iNumber_guesser()">Submit Guess</button>
+    <br></br>
+    <!--The p tag below prints out the hint/result of the guess just used to guide the user to the right answer-->
+    <p id="resultText"></p>
+    <!--This is the hidden button that pops up to reset the page and allow the user to play again-->
+    <button id="btnRefresh" style="display:none;" onclick="restart()">Play Again</button>
+
+    <script>
+        //this gets the random number the user is trying to guess
+        let iHidden_number = Math.floor(Math.random() * 50) + 1;
+        let iCount = 0;
+
+function iNumber_guesser() {
+    let iGuess = document.getElementById("guessed_number").value;
+    let resultText = document.getElementById("resultText");
+    const refreshBtn = document.getElementById("btnRefresh");
+   
+    iCount++;
+    //This if statement runs through all the possible answers and guides the user with specific outputs to lead them to the answer. 
+    if (iGuess < 1) {
+        alert("Please enter a number between 1 & 50");
+    }
+    if (iGuess > 50) {
+        alert("Please enter a number between 1 & 50");
+    }
+    else if (iGuess < iHidden_number) {
+        resultText.innerText = "Too low! Guess again";
+    }
+    else if (iGuess == iHidden_number) {
+        resultText.innerText = `Congrats! You guessed the number!\nYou are a mind-reader!\nIt took you ${iCount} guess(es)!`;
+        refreshBtn.style.display = "inline"; // Show the "Play Again" button
+    }
+    else if (iGuess > iHidden_number) {
+        resultText.innerText = "Too high! Try again";
+    }
+}
+//this function is only called when the number is properly guessed. Upon this it will reveal the restart button
+function restart() {
+    document.getElementById("btnRefresh").style.display = "none"; // Hide the button again
+    window.location.reload(); // Reload the page to start the game over
+}
+
+    </script>
+</body>
+</html> 
